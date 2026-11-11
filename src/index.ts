@@ -3,6 +3,7 @@ import { GerenciadorComandos } from "./commands/GerenciadorComandos.js";
 import { Interpretador } from "./commands/InterpretadorComandos.js";
 import { Ajuda } from "./commands/Ajuda.js";
 import { Ping } from "./commands/Ping.js";
+import { Say } from "./commands/Say.js";
 
 const meuBot = new Bot("GensokyoBot", "1.0.0");
 const comandos = new GerenciadorComandos();
@@ -10,6 +11,7 @@ const interpretador = new Interpretador(comandos);
 
 const ping = new Ping();
 const ajuda = new Ajuda(comandos);
+const say = new Say
 
 console.log(`Nome do bot: ${meuBot.nome}`);
 console.log(`Versão do bot: ${meuBot.versao}`);
@@ -22,5 +24,9 @@ if (comandos.adicionar(ping)) {
 if (comandos.adicionar(ajuda)) {
     console.log("Comando ajuda adicionado");
 }
-interpretador.interpretar("/ajuda")
+if (comandos.adicionar(say)) {
+    console.log("Comando ajuda adicionado");
+}
+interpretador.interpretar("/ajuda ajuda")
 interpretador.interpretar("/ping")
+interpretador.interpretar("/say Olá Gensokyo! Tudo bom?")

@@ -2,7 +2,7 @@ import { GerenciadorComandos } from "./GerenciadorComandos.js";
 class Interpretador {
     private gerenciador: GerenciadorComandos;
 
-    constructor( gerenciador: GerenciadorComandos) {
+    constructor(gerenciador: GerenciadorComandos) {
         this.gerenciador = gerenciador;
     }
 
