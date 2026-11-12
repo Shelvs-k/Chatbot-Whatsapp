@@ -12,7 +12,7 @@ class Ping implements Comando {
         this.alias = ["latencia"];
         this.descricao = "Verifica se o bot está respondendo";
         this.uso = "/ping";
-        this.exemplos = ["/ping \nPong! \n(tempo)ms"];
+        this.exemplos = ["/ping"];
     }
 
     public executar(argumentos: string[]): void {
