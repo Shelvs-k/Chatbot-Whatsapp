@@ -7,6 +7,7 @@ import { Ping } from "./commands/Ping.js";
 import { Say } from "./commands/Say.js";
 import { Roll } from "./commands/Roll.js";
 import { Choose } from "./commands/Choose.js";
+import { EightBall } from "./commands/8ball.js";
 
 const meuBot = new Bot("GensokyoBot", "1.0.0");
 const comandos = new GerenciadorComandos();
@@ -17,19 +18,16 @@ const ajuda = new Ajuda(comandos);
 const say = new Say();
 const roll = new Roll();
 const choose = new Choose();
+const eightball = new EightBall()
 
 const lista_de_comandos: Comando[] = [
     ping,
     ajuda,
     say,
     roll,
-    choose
+    choose,
+    eightball
 ]
-
-console.log(`Nome do bot: ${meuBot.nome}`);
-console.log(`Versão do bot: ${meuBot.versao}`);
-console.log(`Estado do bot: ${meuBot.estado}`);
-meuBot.alterarEstado("paused");
 
 for (const comando of lista_de_comandos) {
     if (comandos.adicionar(comando)) {
@@ -38,7 +36,3 @@ for (const comando of lista_de_comandos) {
         console.log(`Não foi possível adicionar o comando ${comando.nome}`);
     }
 }
-interpretador.interpretar("/help choose")
-interpretador.interpretar("/latencia")
-interpretador.interpretar("/msg Olá Gensokyo! Tudo bom?")
-interpretador.interpretar("/random Reimu Marisa Sakuya Sanae Reisen Youmu")
