@@ -1,0 +1,28 @@
+import { type Comando } from "./Comando.js";
+
+class Choose implements Comando {
+    nome: string;
+    alias: string[];
+    descricao: string;
+    uso: string;
+    exemplos: string[];
+
+    constructor() {
+        this.nome = "choose";
+        this.alias = ["escolher", "random"];
+        this.descricao = "Escolhe aleatóriamente um valor dentre os fornecidos. São necessáios 2 valores no mínimo";
+        this.uso = "/choose <valor1> <valor2> ... [valorN]";
+        this.exemplos = ["/choose 20 30", "/choose pastel hamburguer pizza", "/choose 30 dois coelho"]
+    }
+
+    public executar(argumentos: string[]): void {
+        if (argumentos.length > 1) {
+            const randomIndice = Math.floor(Math.random() * argumentos.length);
+            console.log(`${argumentos[randomIndice]}`);
+        } else {
+            console.log("Você precisa inserir pelo menos 2 valores");
+        }
+    }
+}
+
+export {Choose}

@@ -3,6 +3,7 @@ import { type Comando } from "./Comando.js";
 
 class Ajuda implements Comando {
     nome: string;
+    alias: string[];
     descricao: string;
     uso: string;
     exemplos: string[];
@@ -10,6 +11,7 @@ class Ajuda implements Comando {
     
     constructor(gerenciador: GerenciadorComandos) {
         this.nome = "ajuda";
+        this.alias = ["help", "?"];
         this.descricao = "Lista todos os comandos com sua descrição";
         this.gerenciador = gerenciador;
         this.uso = "/ajuda [comando]";
@@ -21,11 +23,18 @@ class Ajuda implements Comando {
             const comando = this.gerenciador.buscar(argumentos[0]!)
             if (comando) {
                 console.log(`${comando.nome} - ${comando.descricao}`);
-                console.log(`Uso: ${comando.uso} \n Exemplos:`);
+                console.log(`Uso: ${comando.uso}`);
+                if (comando.alias.length > 0) {
+                    console.log("Aliases:");
+                    for (const alias of comando.alias) {
+                        console.log(`  /${alias}`);
+                    }
+                }
+                console.log("\nExemplos:");
                 for (const exemplo of comando.exemplos){
                     console.log(`${exemplo}`);
                 }
-                return
+                return;
             }
             console.log(`O comando "${argumentos[0]}" não foi encontrado`);
         } else {

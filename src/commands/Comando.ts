@@ -1,5 +1,6 @@
 interface Comando {
     nome: string,
+    alias: string[],
     descricao: string,
     uso: string,
     exemplos: string[],

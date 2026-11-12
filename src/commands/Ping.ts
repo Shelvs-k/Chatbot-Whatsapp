@@ -2,12 +2,14 @@ import { type Comando } from "./Comando.js";
 
 class Ping implements Comando {
     nome: string;
+    alias: string[];
     descricao: string;
     uso: string;
     exemplos: string[];
 
     constructor() {
         this.nome = "ping";
+        this.alias = ["latencia"];
         this.descricao = "Verifica se o bot está respondendo";
         this.uso = "/ping";
         this.exemplos = ["/ping \nPong! \n(tempo)ms"];
