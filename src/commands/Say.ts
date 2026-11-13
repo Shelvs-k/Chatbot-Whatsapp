@@ -1,4 +1,5 @@
 import { type Comando } from "./Comando.js";
+import type { ContextoComando } from "./ContextoComando.js";
 
 class Say implements Comando {
     nome: string;
@@ -15,12 +16,12 @@ class Say implements Comando {
         this.exemplos = ["/say Olá!", "/say Até mais, tchau!", "/say Bem vindo!"]
     }
 
-    public executar(argumentos: string[]): void {
+    public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
         if (argumentos.length > 0) {
             const mensagem = argumentos.join(" ");
-            console.log(mensagem);
+            await contexto.mensageiro.enviar("terminal", mensagem);
         } else {
-            console.log("Você precisa colocar uma mensagem");
+            await contexto.mensageiro.enviar("terminal", "Insira uma mensagem para ser enviada");
         }
     }
 }

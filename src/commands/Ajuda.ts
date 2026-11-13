@@ -22,7 +22,7 @@ class Ajuda implements Comando {
         if (argumentos.length > 0) {
             const comando = this.gerenciador.buscar(argumentos[0]!)
             if (comando) {
-                console.log(`${comando.nome} - ${comando.descricao}`);
+                console.log(`\n${comando.nome} - ${comando.descricao}`);
                 console.log(`Uso: ${comando.uso}`);
                 if (comando.alias.length > 0) {
                     console.log("Aliases:");

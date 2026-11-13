@@ -1,6 +1,8 @@
 import type { Comando } from "../commands/Comando.js";
+import type { ContextoComando } from "../commands/ContextoComando.js";
 import { GerenciadorComandos } from "../commands/GerenciadorComandos.js";
 import { Interpretador } from "../commands/InterpretadorComandos.js";
+import { type Mensageiro } from "../messaging/Mensageiro.js";
 
 type EstadoBot = "online" | "offline" | "paused";
 
@@ -10,13 +12,15 @@ class Bot {
     private _estado: EstadoBot;
     private _gerenciador: GerenciadorComandos;
     private _interpretador: Interpretador;
+    private _contexto: ContextoComando;
 
-    constructor(nome: string, versao: string, gerenciador: GerenciadorComandos) {
+    constructor(nome: string, versao: string, gerenciador: GerenciadorComandos, mensageiro: Mensageiro) {
         this.nome = nome;
         this.versao = versao;
         this._estado = "online";
         this._gerenciador = gerenciador;
-        this._interpretador = new Interpretador(this._gerenciador);
+        this._contexto = {mensageiro}
+        this._interpretador = new Interpretador(this._gerenciador, this._contexto);
     }
 
     get estado(): EstadoBot {
@@ -36,9 +40,13 @@ class Bot {
         return true;
     }
 
-    public receberMensagem(mensagem: string): void {
+    public async receberMensagem(mensagem: string): Promise<void> {
+        try {
         if (this.estaOnline)
-            this._interpretador.interpretar(mensagem);
+            await this._interpretador.interpretar(mensagem);
+        } catch (erro) {
+            console.log(erro);
+        }
     }
 
     public adicionarComando(comando: Comando): boolean {
