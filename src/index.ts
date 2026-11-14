@@ -13,10 +13,16 @@ import { Choose } from "./commands/Choose.js";
 import { EightBall } from "./commands/8ball.js";
 import { Coinflip } from "./commands/Coinflip.js";
 import type { MensagemRecebida } from './messaging/MensagemRecebida.js';
+import { SimuladorWhatsapp } from './simulator/SimuladorWhatsapp.js';
+import { MensageiroSimulador } from './messaging/implementations/MensageiroSimulador.js';
 
 const comandos = new GerenciadorComandos();
-const mensageiro = new MensageiroTerminal();
+const colecao = new Map<string, string>();
+colecao.set("1", "Grupo das Magas de Gensokyo");
+const mensageiro = new MensageiroSimulador(colecao);
 const meuBot = new Bot("GensokyoBot", "1.0.0", comandos, mensageiro);
+
+const simulador = new SimuladorWhatsapp(meuBot, colecao)
 
 const ping = new Ping();
 const ajuda = new Ajuda(comandos);
@@ -60,4 +66,4 @@ for (const comando of lista_de_comandos) {
     }
 }
 
-ler();
+await simulador.main()
