@@ -19,9 +19,9 @@ class Say implements Comando {
     public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
         if (argumentos.length > 0) {
             const mensagem = argumentos.join(" ");
-            await contexto.mensageiro.enviar("terminal", mensagem);
+            await contexto.mensageiro.enviar(contexto.destino, mensagem);
         } else {
-            await contexto.mensageiro.enviar("terminal", "Insira uma mensagem para ser enviada");
+            await contexto.mensageiro.enviar(contexto.destino, "Insira uma mensagem para ser enviada");
         }
     }
 }

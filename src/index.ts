@@ -12,6 +12,7 @@ import { Roll } from "./commands/Roll.js";
 import { Choose } from "./commands/Choose.js";
 import { EightBall } from "./commands/8ball.js";
 import { Coinflip } from "./commands/Coinflip.js";
+import type { MensagemRecebida } from './messaging/MensagemRecebida.js';
 
 const comandos = new GerenciadorComandos();
 const mensageiro = new MensageiroTerminal();
@@ -26,7 +27,13 @@ const eightball = new EightBall()
 const coinflip = new Coinflip();
 
 const lista_de_comandos: Comando[] = [
-    say
+    say,
+    ping,
+    eightball,
+    choose,
+    coinflip,
+    roll,
+    ajuda
 ]
 
 async function ler() {
@@ -35,7 +42,12 @@ async function ler() {
     while (msg !== "/sair") {
         console.log(`${meuBot.nome} está ${meuBot.estaOnline ? "online" : "offline"}`);
         msg = await rl.question("Digite um comando: ");
-        meuBot.receberMensagem(msg);
+        const mensagem: MensagemRecebida = {
+            conteudo: msg,
+            idConversa: "terminal",
+            origem: "terminal"
+        };
+        await meuBot.receberMensagem(mensagem);
     }
     rl.close();
 }

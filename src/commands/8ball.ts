@@ -1,4 +1,5 @@
 import { type Comando } from "./Comando.js";
+import type { ContextoComando } from "./ContextoComando.js";
 
 class EightBall implements Comando {
     nome: string;
@@ -21,13 +22,13 @@ class EightBall implements Comando {
         "Não", "Nunca!", "Os astros discordam", "Nem fudendo"
     ];
 
-    public executar(argumentos: string[]): void {
+    public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
         if (argumentos.length > 0) {
             const randomIndice: number = Math.floor(Math.random() * EightBall.respostas.length);
             const pergunta: string = argumentos.join(" ");
-            console.log(`${pergunta}? ${EightBall.respostas[randomIndice]}`);
+            await contexto.mensageiro.enviar(contexto.destino, `${pergunta}? ${EightBall.respostas[randomIndice]}`);
         } else {
-            console.log("Insira uma pergunta");
+            await contexto.mensageiro.enviar(contexto.destino, "Insira uma pergunta");
         }
     }
 }

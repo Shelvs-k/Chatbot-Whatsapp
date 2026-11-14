@@ -1,5 +1,6 @@
 import { GerenciadorComandos } from "./GerenciadorComandos.js";
 import { type Comando } from "./Comando.js";
+import type { ContextoComando } from "./ContextoComando.js";
 
 class Ajuda implements Comando {
     nome: string;
@@ -18,29 +19,29 @@ class Ajuda implements Comando {
         this.exemplos = ["/ajuda", "/ajuda ping", "/ajuda say"];
     }
 
-    public executar(argumentos: string[]): void {
+    public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
         if (argumentos.length > 0) {
             const comando = this.gerenciador.buscar(argumentos[0]!)
             if (comando) {
-                console.log(`\n${comando.nome} - ${comando.descricao}`);
-                console.log(`Uso: ${comando.uso}`);
+                await contexto.mensageiro.enviar(contexto.destino, `\n${comando.nome} - ${comando.descricao}`);
+                await contexto.mensageiro.enviar(contexto.destino, `Uso: ${comando.uso}`);
                 if (comando.alias.length > 0) {
-                    console.log("Aliases:");
+                    await contexto.mensageiro.enviar(contexto.destino, "Aliases:");
                     for (const alias of comando.alias) {
-                        console.log(`  /${alias}`);
+                        await contexto.mensageiro.enviar(contexto.destino, `  /${alias}`);
                     }
                 }
-                console.log("\nExemplos:");
+                await contexto.mensageiro.enviar(contexto.destino, "\nExemplos:");
                 for (const exemplo of comando.exemplos){
-                    console.log(`${exemplo}`);
+                    await contexto.mensageiro.enviar(contexto.destino, `${exemplo}`);
                 }
                 return;
             }
-            console.log(`O comando "${argumentos[0]}" não foi encontrado`);
+            await contexto.mensageiro.enviar(contexto.destino, `O comando "${argumentos[0]}" não foi encontrado`);
         } else {
-            console.log("Comandos disponíveis:");
+            await contexto.mensageiro.enviar(contexto.destino, "Comandos disponíveis:");
             for (const comando of this.gerenciador.listar()) {
-                console.log(`  /${comando.nome} - ${comando.descricao}`);
+                await contexto.mensageiro.enviar(contexto.destino, `  /${comando.nome} - ${comando.descricao}`);
             }
         }
     }

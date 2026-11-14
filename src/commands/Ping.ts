@@ -1,4 +1,5 @@
 import { type Comando } from "./Comando.js";
+import type { ContextoComando } from "./ContextoComando.js";
 
 class Ping implements Comando {
     nome: string;
@@ -15,12 +16,12 @@ class Ping implements Comando {
         this.exemplos = ["/ping"];
     }
 
-    public executar(argumentos: string[]): void {
+    public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
         const inicio = performance.now();
-        console.log("Pong!");
+        await contexto.mensageiro.enviar(contexto.destino, "Pong!");
         const final = performance.now();
         const delay = final - inicio;
-        console.log(`${delay.toFixed(2)}ms`);
+        await contexto.mensageiro.enviar(contexto.destino, `${delay.toFixed(2)}ms`);
     }
 }
 

@@ -1,4 +1,5 @@
 import { type Comando } from "./Comando.js";
+import type { ContextoComando } from "./ContextoComando.js";
 
 class Coinflip implements Comando {
     nome: string;
@@ -15,12 +16,12 @@ class Coinflip implements Comando {
        this.exemplos = ["/coinflip"];
     }
 
-    public executar(argumentos: string[]): void {
+    public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
         const moeda = Math.random();
         if (moeda >= 0.5)
-            console.log("Cara!");
+            await contexto.mensageiro.enviar(contexto.destino, "Cara!");
         else 
-            console.log("Coroa!");
+            await contexto.mensageiro.enviar(contexto.destino, "Coroa!");
     }
 }
 
