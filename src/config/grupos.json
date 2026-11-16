@@ -1,0 +1,19 @@
+{
+    "grupos": [
+        {
+            "id": "1",
+            "nome": "Grupo das Magas",
+            "autorizado": true
+        },
+        {
+            "id": "2",
+            "nome": "Clube da Alice",
+            "autorizado": false
+        },
+        {
+            "id": "3",
+            "nome": "Mansão Escarlate",
+            "autorizado": true
+        }
+    ]
+}

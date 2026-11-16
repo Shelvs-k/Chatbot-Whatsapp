@@ -45,9 +45,11 @@ class SimuladorWhatsapp {
             const mensagem: MensagemRecebida = {
                 conteudo: msg,
                 idConversa: conversa,
-                origem: "simulador"
+                origem: "simulador",
+                tipoConversa: "grupo"
             };
-            await this.bot.receberMensagem(mensagem);
+            if (msg !== "/sair")
+                await this.bot.receberMensagem(mensagem);
         }
     }
 

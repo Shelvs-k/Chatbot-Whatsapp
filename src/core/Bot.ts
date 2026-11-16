@@ -14,14 +14,16 @@ class Bot {
     private _mensageiro: Mensageiro;
     private _gerenciador: GerenciadorComandos;
     private _interpretador: Interpretador;
+    private _conversasAutorizadas: Set<string>;
 
-    constructor(nome: string, versao: string, gerenciador: GerenciadorComandos, mensageiro: Mensageiro) {
+    constructor(nome: string, versao: string, gerenciador: GerenciadorComandos, mensageiro: Mensageiro, autorizados: Set<string>) {
         this.nome = nome;
         this.versao = versao;
         this._estado = "online";
         this._gerenciador = gerenciador;
         this._mensageiro = mensageiro;
         this._interpretador = new Interpretador(this._gerenciador);
+        this._conversasAutorizadas = autorizados;
     }
 
     get estado(): EstadoBot {
@@ -41,15 +43,23 @@ class Bot {
         return true;
     }
 
+    private conversaAutorizada(mensagem: MensagemRecebida): boolean {
+        if ((!this._conversasAutorizadas.has(mensagem.idConversa) || mensagem.tipoConversa !== "grupo") && mensagem.origem !== "terminal")
+            return false;
+        return true;
+    }
+
     public async receberMensagem(mensagem: MensagemRecebida): Promise<void> {
         try {
-        if (this.estaOnline){
+            if (!this.estaOnline)
+                return;
+            if (!this.conversaAutorizada(mensagem))
+                return;
             const contexto: ContextoComando = {
                 mensageiro: this._mensageiro,
                 destino: mensagem.idConversa
             }
             await this._interpretador.interpretar(mensagem.conteudo, contexto);
-        }
         } catch (erro) {
             console.log(erro);
         }
