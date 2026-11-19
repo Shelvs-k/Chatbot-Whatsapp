@@ -17,11 +17,22 @@ class Ping implements Comando {
     }
 
     public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
-        const inicio = performance.now();
-        await contexto.mensageiro.enviar(contexto.destino, "Pong!");
+        const inicio = contexto.inicioProcessamento;
+        try {
+            await contexto.mensageiro.enviar(contexto.destino, "Pong!");
+        } catch (erro) {
+            console.error("Não foi possível enviar a mensagem Pong");
+            console.error(erro);
+            return;
+        }
         const final = performance.now();
         const delay = final - inicio;
-        await contexto.mensageiro.enviar(contexto.destino, `${delay.toFixed(2)}ms`);
+        try {
+            await contexto.mensageiro.enviar(contexto.destino, `${delay.toFixed(2)}ms`);
+        } catch (erro) {
+            console.error("Não foi possível enviar a latência");
+            console.error(erro);
+        }
     }
 }
 

@@ -57,7 +57,8 @@ class Bot {
                 return;
             const contexto: ContextoComando = {
                 mensageiro: this._mensageiro,
-                destino: mensagem.idConversa
+                destino: mensagem.idConversa,
+                inicioProcessamento: performance.now()
             }
             await this._interpretador.interpretar(mensagem.conteudo, contexto);
         } catch (erro) {
