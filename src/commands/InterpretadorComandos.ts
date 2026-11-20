@@ -18,7 +18,8 @@ class Interpretador {
             const execucao = this.gerenciador.buscar(comando);
             if (execucao) {
                 const argumentos = partes.slice(1);
-                await execucao.executar(argumentos, contexto);
+                const mensagemParaEnviar = await execucao.executar(argumentos, contexto);
+                await contexto.mensageiro.enviar(contexto.destino, mensagemParaEnviar);
             } else {
                 console.log("O comando não foi encontrado");
             }

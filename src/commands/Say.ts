@@ -16,13 +16,15 @@ class Say implements Comando {
         this.exemplos = ["/say Olá!", "/say Até mais, tchau!", "/say Bem vindo!"]
     }
 
-    public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
+    public async executar(argumentos: string[], contexto: ContextoComando): Promise<string> {
+        let mensagem = ""
         if (argumentos.length > 0) {
-            const mensagem = argumentos.join(" ");
-            await contexto.mensageiro.enviar(contexto.destino, mensagem);
+            const fala = argumentos.join(" ");
+            mensagem += `${fala}\n`;
         } else {
-            await contexto.mensageiro.enviar(contexto.destino, "Insira uma mensagem para ser enviada");
+            mensagem += "Insira uma mensagem para ser enviada\n";
         }
+        return mensagem
     }
 }
 

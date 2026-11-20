@@ -8,7 +8,12 @@ interface NoOperacao {
     filhoDireito: No;
 }
 
-type No = NoNumerico | NoOperacao;
+interface NoUnario {
+    operador: "-";
+    filho: No;
+}
+
+type No = NoNumerico | NoOperacao | NoUnario;
 
 type Operador = "+" | "-" | "*" | "/" | "^"
 
@@ -44,18 +49,31 @@ class Parsee { //O nome Parsee é em homenagem a Parsee de Touhou
     }
 
     private parseTermo(): No {
-        let noAtual: No = this.parseFator()
+        let noAtual: No = this.parseNegativo()
         while (this.tokens[this.pos] === "*" || this.tokens[this.pos] === "/") {
             const tokenAtual = this.tokens[this.pos];
             this.pos++
             let novoNo: No = {
                 filhoEsquerdo: noAtual,
                 operador: tokenAtual as Operador,
-                filhoDireito: this.parseFator()
+                filhoDireito: this.parseNegativo()
             }
             noAtual = novoNo
         }
         return noAtual
+    }
+
+    private parseNegativo(): No {
+        const tokenAtual = this.tokens[this.pos]
+        if (tokenAtual === "-") {
+            this.pos++;
+            const negativo: NoUnario = {
+                operador: tokenAtual,
+                filho: this.parseNegativo()
+            }
+            return negativo;
+        }
+        return this.parseFator()
     }
 
     private parseFator(): No {
@@ -66,7 +84,7 @@ class Parsee { //O nome Parsee é em homenagem a Parsee de Touhou
             const retorno: No = {
                 filhoEsquerdo: token,
                 operador: tokenAtual,
-                filhoDireito: this.parseFator()
+                filhoDireito: this.parseNegativo()
             }
             return retorno
         }
@@ -86,8 +104,8 @@ class Parsee { //O nome Parsee é em homenagem a Parsee de Touhou
             else throw Error("Parênteses não correspondentes")
             return expressao
         }
-        throw Error("Esperado número ou parênteses")
+        throw Error("Esperado número sem sinal, parênteses ou número negativo")
     }
 }
 
-export { Parsee }
+export { Parsee , type No }

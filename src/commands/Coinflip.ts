@@ -16,12 +16,14 @@ class Coinflip implements Comando {
        this.exemplos = ["/coinflip"];
     }
 
-    public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
+    public async executar(argumentos: string[], contexto: ContextoComando): Promise<string> {
+        let mensagem = ""
         const moeda = Math.random();
         if (moeda >= 0.5)
-            await contexto.mensageiro.enviar(contexto.destino, "Cara!");
+            mensagem += "Cara!\n";
         else 
-            await contexto.mensageiro.enviar(contexto.destino, "Coroa!");
+            mensagem += "Coroa!\n";
+        return mensagem
     }
 }
 

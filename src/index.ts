@@ -10,6 +10,7 @@ import { Roll } from "./commands/Roll.js";
 import { Choose } from "./commands/Choose.js";
 import { EightBall } from "./commands/8ball.js";
 import { Coinflip } from "./commands/Coinflip.js";
+import { Calc } from './commands/Calc.js';
 import { SimuladorWhatsapp } from './simulator/SimuladorWhatsapp.js';
 import { MensageiroSimulador } from './messaging/implementations/MensageiroSimulador.js';
 
@@ -93,6 +94,7 @@ async function main() {
         const choose = new Choose();
         const eightball = new EightBall()
         const coinflip = new Coinflip();
+        const calc = new Calc()
 
         const lista_de_comandos: Comando[] = [
             say,
@@ -101,7 +103,8 @@ async function main() {
             choose,
             coinflip,
             roll,
-            ajuda
+            ajuda,
+            calc
         ]
 
         for (const comando of lista_de_comandos) {

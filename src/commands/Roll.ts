@@ -16,25 +16,27 @@ class Roll implements Comando {
         this.exemplos = ["/roll", "/roll 50 20", "/roll 100 -10"]
     }
 
-    public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
+    public async executar(argumentos: string[], contexto: ContextoComando): Promise<string> {
+        let mensagem = ""
         let lados: number = 20;
         let soma: number = 0;
         if (argumentos.length > 0) {
             lados = Number(argumentos[0]);
             if (Number.isNaN(lados) || lados <= 0 || !Number.isFinite(lados) || !Number.isInteger(lados)) {
-                await contexto.mensageiro.enviar(contexto.destino, "Insira um número válido de lados");
-                return;
+                mensagem += "Insira um número válido de lados\n";
+                return mensagem;
             }
             if (argumentos.length > 1) {
                 soma = Number(argumentos[1]);
                 if (Number.isNaN(soma) || !Number.isFinite(soma)) {
-                    await contexto.mensageiro.enviar(contexto.destino, "Insira um número válido para a soma");
-                    return;
+                    mensagem += "Insira um número válido para a soma\n";
+                    return mensagem;
                 }
             }
         }
         const numAleatorio: number = Math.floor(Math.random() * lados) + 1 + soma;
-        await contexto.mensageiro.enviar(contexto.destino, `${numAleatorio}!`);
+        mensagem += `${numAleatorio}!\n`;
+        return mensagem
     }
 }
 

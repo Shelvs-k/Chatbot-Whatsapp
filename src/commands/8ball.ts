@@ -22,14 +22,16 @@ class EightBall implements Comando {
         "Não", "Nunca!", "Os astros discordam", "Nem fudendo"
     ];
 
-    public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
+    public async executar(argumentos: string[], contexto: ContextoComando): Promise<string> {
+        let mensagem = "";
         if (argumentos.length > 0) {
             const randomIndice: number = Math.floor(Math.random() * EightBall.respostas.length);
             const pergunta: string = argumentos.join(" ");
-            await contexto.mensageiro.enviar(contexto.destino, `${pergunta}? ${EightBall.respostas[randomIndice]}`);
+            mensagem += `${pergunta}? ${EightBall.respostas[randomIndice]}\n`;
         } else {
-            await contexto.mensageiro.enviar(contexto.destino, "Insira uma pergunta");
+            mensagem += "Insira uma pergunta\n";
         }
+        return mensagem;
     }
 }
 

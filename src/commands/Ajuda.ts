@@ -19,31 +19,32 @@ class Ajuda implements Comando {
         this.exemplos = ["/ajuda", "/ajuda ping", "/ajuda say"];
     }
 
-    public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
+    public async executar(argumentos: string[], contexto: ContextoComando): Promise<string> {
+        let mensagem = "";
         if (argumentos.length > 0) {
             const comando = this.gerenciador.buscar(argumentos[0]!)
             if (comando) {
-                await contexto.mensageiro.enviar(contexto.destino, `\n${comando.nome} - ${comando.descricao}`);
-                await contexto.mensageiro.enviar(contexto.destino, `Uso: ${comando.uso}`);
+                mensagem += `\n${comando.nome} - ${comando.descricao}\n`;
+                mensagem += `Uso: ${comando.uso}\n`;
                 if (comando.alias.length > 0) {
-                    await contexto.mensageiro.enviar(contexto.destino, "Aliases:");
+                    mensagem += "Aliases:\n";
                     for (const alias of comando.alias) {
-                        await contexto.mensageiro.enviar(contexto.destino, `  /${alias}`);
+                        mensagem += `  /${alias}\n`
                     }
                 }
-                await contexto.mensageiro.enviar(contexto.destino, "\nExemplos:");
+                mensagem += "\nExemplos:\n"
                 for (const exemplo of comando.exemplos){
-                    await contexto.mensageiro.enviar(contexto.destino, `${exemplo}`);
+                    mensagem += `${exemplo}\n`
                 }
-                return;
-            }
-            await contexto.mensageiro.enviar(contexto.destino, `O comando "${argumentos[0]}" não foi encontrado`);
+            } else 
+                mensagem += `O comando "${argumentos[0]}" não foi encontrado\n`
         } else {
-            await contexto.mensageiro.enviar(contexto.destino, "Comandos disponíveis:");
+            mensagem += "Comandos disponíveis:\n";
             for (const comando of this.gerenciador.listar()) {
-                await contexto.mensageiro.enviar(contexto.destino, `  /${comando.nome} - ${comando.descricao}`);
+                mensagem += `  /${comando.nome} - ${comando.descricao}\n`
             }
         }
+        return mensagem
     }
 }
 

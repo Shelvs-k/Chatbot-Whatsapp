@@ -16,13 +16,15 @@ class Choose implements Comando {
         this.exemplos = ["/choose 20 30", "/choose pastel hamburguer pizza", "/choose 30 dois coelho"]
     }
 
-    public async executar(argumentos: string[], contexto: ContextoComando): Promise<void> {
+    public async executar(argumentos: string[], contexto: ContextoComando): Promise<string> {
+        let mensagem = ""
         if (argumentos.length > 1) {
             const randomIndice = Math.floor(Math.random() * argumentos.length);
-            await contexto.mensageiro.enviar(contexto.destino, `${argumentos[randomIndice]}`);
+            mensagem += `${argumentos[randomIndice]}\n`;
         } else {
-            await contexto.mensageiro.enviar(contexto.destino, "Você precisa inserir pelo menos 2 valores");
+            mensagem += "Você precisa inserir pelo menos 2 valores\n";
         }
+        return mensagem
     }
 }
 

@@ -6,6 +6,6 @@ interface Comando {
     descricao: string,
     uso: string,
     exemplos: string[],
-    executar(argumentos: string[], contexto: ContextoComando): Promise<void>;
+    executar(argumentos: string[], contexto: ContextoComando): Promise<string>;
 }
 export {type Comando};
