@@ -19,11 +19,11 @@ class GerenciadorComandos extends Gerenciador<Comando> {
     }
     public buscar(nome: string): Comando | undefined {
         for (const comando of this.listar()) {
-            if (nome === comando.nome) {
+            if (nome.toLowerCase() === comando.nome.toLowerCase()) {
                 return comando
             }
             for (const alias of comando.alias) {
-                if (nome === alias) {
+                if (nome.toLowerCase() === alias.toLowerCase()) {
                     return comando
                 }
             }

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsx src/teste.ts",
+    "test": "node --import tsx --test",
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "tsx src/index.ts"

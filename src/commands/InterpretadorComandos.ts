@@ -22,6 +22,7 @@ class Interpretador {
                 await contexto.mensageiro.enviar(contexto.destino, mensagemParaEnviar);
             } else {
                 console.log("O comando não foi encontrado");
+                await contexto.mensageiro.enviar(contexto.destino, "Opa! Parece que esse comando não existe ou foi digitado errado\nVerifique com /ajuda todos os comandos existentes");
             }
         }
     }
