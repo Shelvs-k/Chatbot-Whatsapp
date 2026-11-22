@@ -1,5 +1,6 @@
-import { type Comando } from "./Comando.js";
-import type { ContextoComando } from "./ContextoComando.js";
+import { type Comando } from "../Comando.js";
+import type { ContextoComando } from "../ContextoComando.js";
+import type { GerenciadorComandos } from "../GerenciadorComandos.js";
 
 class Ping implements Comando {
     nome: string;
@@ -8,7 +9,7 @@ class Ping implements Comando {
     uso: string;
     exemplos: string[];
 
-    constructor() {
+    constructor(gerenciador: GerenciadorComandos) {
         this.nome = "ping";
         this.alias = ["latencia"];
         this.descricao = "Verifica se o bot está respondendo";

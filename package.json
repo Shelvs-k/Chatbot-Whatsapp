@@ -7,7 +7,8 @@
     "test": "node --import tsx --test",
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "tsx src/index.ts"
+    "start": "tsx src/index.ts",
+    "generate": "python scripts/gerar_comandos.py"
   },
   "keywords": [],
   "type": "module",

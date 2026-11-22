@@ -1,0 +1,8 @@
+export { EightBall } from "../implementations/8ball.js"
+export { Ajuda } from "../implementations/Ajuda.js"
+export { Calc } from "../implementations/Calc.js"
+export { Choose } from "../implementations/Choose.js"
+export { Coinflip } from "../implementations/Coinflip.js"
+export { Ping } from "../implementations/Ping.js"
+export { Roll } from "../implementations/Roll.js"
+export { Say } from "../implementations/Say.js"

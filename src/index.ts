@@ -1,18 +1,10 @@
 import * as fs from 'node:fs/promises'
 
 import { Bot } from "./core/Bot.js";
-import { type Comando } from "./commands/Comando.js";
 import { GerenciadorComandos } from "./commands/GerenciadorComandos.js";
-import { Ajuda } from "./commands/Ajuda.js";
-import { Ping } from "./commands/Ping.js";
-import { Say } from "./commands/Say.js";
-import { Roll } from "./commands/Roll.js";
-import { Choose } from "./commands/Choose.js";
-import { EightBall } from "./commands/8ball.js";
-import { Coinflip } from "./commands/Coinflip.js";
-import { Calc } from './commands/Calc.js';
 import { SimuladorWhatsapp } from './simulator/SimuladorWhatsapp.js';
 import { MensageiroSimulador } from './messaging/implementations/MensageiroSimulador.js';
+import { registrarComandos } from './commands/registry/RegistrarComandos.js';
 
 interface Grupo {
     id: string;
@@ -87,33 +79,7 @@ async function main() {
 
         const simulador = new SimuladorWhatsapp(meuBot, colecao)
 
-        const ping = new Ping();
-        const ajuda = new Ajuda(comandos);
-        const say = new Say();
-        const roll = new Roll();
-        const choose = new Choose();
-        const eightball = new EightBall()
-        const coinflip = new Coinflip();
-        const calc = new Calc()
-
-        const lista_de_comandos: Comando[] = [
-            say,
-            ping,
-            eightball,
-            choose,
-            coinflip,
-            roll,
-            ajuda,
-            calc
-        ]
-
-        for (const comando of lista_de_comandos) {
-            if (meuBot.adicionarComando(comando)) {
-                console.log(`Comando ${comando.nome} adicionado com sucesso`);
-            } else {
-                console.log(`Não foi possível adicionar o comando ${comando.nome}`);
-            }
-        }
+        registrarComandos(comandos)
 
         await simulador.main()
     } catch (erro) {

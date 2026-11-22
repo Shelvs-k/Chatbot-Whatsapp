@@ -1,8 +1,9 @@
-import { Evaluator } from "../calculator/Evaluator.js";
-import { Lexer } from "../calculator/Lexer.js";
-import { Parsee } from "../calculator/Parser.js";
-import type { Comando } from "./Comando.js";
-import type { ContextoComando } from "./ContextoComando.js";
+import { Evaluator } from "../../calculator/Evaluator.js";
+import { Lexer } from "../../calculator/Lexer.js";
+import { Parsee } from "../../calculator/Parser.js";
+import type { Comando } from "../Comando.js";
+import type { ContextoComando } from "../ContextoComando.js";
+import type { GerenciadorComandos } from "../GerenciadorComandos.js";
 
 class Calc implements Comando {
     nome: string;
@@ -11,7 +12,7 @@ class Calc implements Comando {
     uso: string;
     exemplos: string[];
 
-    constructor () {
+    constructor(gerenciador: GerenciadorComandos) {
         this.nome = "calc"
         this.alias = ["calculadora", "calcular", "equação"]
         this.descricao = "Realiza uma operação matemática simples"

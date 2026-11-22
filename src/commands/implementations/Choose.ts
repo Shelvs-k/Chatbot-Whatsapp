@@ -1,5 +1,6 @@
-import { type Comando } from "./Comando.js";
-import type { ContextoComando } from "./ContextoComando.js";
+import { type Comando } from "../Comando.js";
+import type { ContextoComando } from "../ContextoComando.js";
+import type { GerenciadorComandos } from "../GerenciadorComandos.js";
 
 class Choose implements Comando {
     nome: string;
@@ -8,7 +9,7 @@ class Choose implements Comando {
     uso: string;
     exemplos: string[];
 
-    constructor() {
+    constructor(gerenciador: GerenciadorComandos) {
         this.nome = "choose";
         this.alias = ["escolher", "random"];
         this.descricao = "Escolhe aleatóriamente um valor dentre os fornecidos. São necessáios 2 valores no mínimo";

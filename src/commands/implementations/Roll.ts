@@ -1,5 +1,6 @@
-import { type Comando } from "./Comando.js";
-import type { ContextoComando } from "./ContextoComando.js";
+import { type Comando } from "../Comando.js";
+import type { ContextoComando } from "../ContextoComando.js";
+import type { GerenciadorComandos } from "../GerenciadorComandos.js";
 
 class Roll implements Comando {
     nome: string;
@@ -8,7 +9,7 @@ class Roll implements Comando {
     uso: string;
     exemplos: string[];
 
-    constructor() {
+    constructor(gerenciador: GerenciadorComandos) {
         this.nome = "roll";
         this.alias = ["dado", "rolar", "d"];
         this.descricao = "Rola um dado com X lados e gera um número aleatório entre 1 e X, X é 20 por padrão.\nTambém é possível adicionar um número para ser somado no resultado final no argumento 2";

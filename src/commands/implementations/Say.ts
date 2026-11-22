@@ -1,5 +1,6 @@
-import { type Comando } from "./Comando.js";
-import type { ContextoComando } from "./ContextoComando.js";
+import { type Comando } from "../Comando.js";
+import type { ContextoComando } from "../ContextoComando.js";
+import type { GerenciadorComandos } from "../GerenciadorComandos.js";
 
 class Say implements Comando {
     nome: string;
@@ -8,7 +9,7 @@ class Say implements Comando {
     uso: string;
     exemplos: string[];
 
-    constructor() {
+    constructor(gerenciador: GerenciadorComandos) {
         this.nome = "say";
         this.alias = ["msg", "talk"];
         this.descricao = "Envia uma mensagem escolhida pelo usuário";

@@ -1,5 +1,6 @@
-import { type Comando } from "./Comando.js";
-import type { ContextoComando } from "./ContextoComando.js";
+import { type Comando } from "../Comando.js";
+import type { ContextoComando } from "../ContextoComando.js";
+import type { GerenciadorComandos } from "../GerenciadorComandos.js";
 
 class EightBall implements Comando {
     nome: string;
@@ -8,7 +9,7 @@ class EightBall implements Comando {
     uso: string;    
     exemplos: string[];
 
-    constructor() {
+    constructor(gerenciador: GerenciadorComandos) {
         this.nome = "8ball";
         this.alias = ["bola8", "bola", "oraculo"];
         this.descricao = "Gera uma previsão aleatória sobre uma pergunta";

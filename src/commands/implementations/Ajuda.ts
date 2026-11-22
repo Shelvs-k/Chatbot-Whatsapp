@@ -1,6 +1,6 @@
-import { GerenciadorComandos } from "./GerenciadorComandos.js";
-import { type Comando } from "./Comando.js";
-import type { ContextoComando } from "./ContextoComando.js";
+import { GerenciadorComandos } from "../GerenciadorComandos.js";
+import { type Comando } from "../Comando.js";
+import type { ContextoComando } from "../ContextoComando.js";
 
 class Ajuda implements Comando {
     nome: string;

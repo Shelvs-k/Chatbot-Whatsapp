@@ -1,5 +1,6 @@
-import { type Comando } from "./Comando.js";
-import type { ContextoComando } from "./ContextoComando.js";
+import { type Comando } from "../Comando.js";
+import type { ContextoComando } from "../ContextoComando.js";
+import type { GerenciadorComandos } from "../GerenciadorComandos.js";
 
 class Coinflip implements Comando {
     nome: string;
@@ -8,7 +9,7 @@ class Coinflip implements Comando {
     uso: string;
     exemplos: string[];
 
-    constructor() {
+    constructor(gerenciador: GerenciadorComandos) {
        this.nome = "coinflip";
        this.alias = ["moeda", "caraoucoroa", "flip"];
        this.descricao = "Gira uma moeda e decide aleatoriamente entre cara ou coroa";
